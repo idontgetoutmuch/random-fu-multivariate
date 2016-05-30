@@ -1,8 +1,20 @@
+{-# LANGUAGE TypeFamilies          #-}
+{-# LANGUAGE FlexibleInstances     #-}
+{-# LANGUAGE FlexibleContexts      #-}
+{-# LANGUAGE MultiParamTypeClasses #-}
+
 module Data.Random.Distribution.MultivariateNormal
     ( Normal(..)
     ) where
 
-normalMultivariate :: H.Vector Double -> H.Herm Double -> RVarT m (H.Vector Double)
+import           Data.Random.Distribution
+import qualified Numeric.LinearAlgebra.HMatrix as H
+import           Control.Monad.State
+import qualified Data.Random as R
+import           Foreign.Storable ( Storable )
+import           Data.Maybe ( fromJust )
+
+normalMultivariate :: H.Vector Double -> H.Herm Double -> R.RVarT m (H.Vector Double)
 normalMultivariate mu bigSigma = do
   z <- replicateM (H.size mu) (rvarT R.StdNormal)
   return $ mu + bigA H.#> (H.fromList z)
