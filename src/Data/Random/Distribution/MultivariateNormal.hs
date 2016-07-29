@@ -9,7 +9,7 @@ module Data.Random.Distribution.MultivariateNormal
 
 import           Data.Random.Distribution
 import qualified Numeric.LinearAlgebra.HMatrix as H
-import           Control.Monad.State
+import           Control.Monad
 import qualified Data.Random as R
 import           Foreign.Storable ( Storable )
 import           Data.Maybe ( fromJust )
@@ -42,7 +42,7 @@ normalLogPdf mu bigSigma x = - H.sumElements (H.cmap log (diagonals dec))
   where
     dec = fromJust $ H.mbChol bigSigma
     t = fromJust $ H.linearSolve (H.tr dec) (H.asColumn $ x - mu)
-    u = H.cmap (\x -> x * x) t
+    u = H.cmap (\v -> v * v) t
     s = H.sumElements u
 
 diagonals :: (Storable a, H.Element t, H.Indexable (H.Vector t) a) =>
