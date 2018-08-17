@@ -1,5 +1,5 @@
 name:                random-fu-multivariate
-version:             0.1.2.0
+version:             0.1.2.1
 synopsis:            Multivariate distributions for random-fu
 description:         Please see README.md
 homepage:            https://github.com/idontgetoutmuch/random-fu-multivariate
@@ -23,7 +23,6 @@ library
   hs-source-dirs:    src
   exposed-modules:   Data.Random.Distribution.MultivariateNormal
                    , Data.Random.Distribution.Static.MultivariateNormal
-                   , Data.Random.Distribution.MultiNormal
   ghc-options:       -Wall
   build-depends:     base >= 4.7 && < 5
                    , random-fu
