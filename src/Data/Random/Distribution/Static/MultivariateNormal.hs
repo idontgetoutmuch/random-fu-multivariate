@@ -91,7 +91,7 @@ import           Data.Random hiding ( StdNormal, Normal )
 import qualified Data.Random as R
 import           Control.Monad.State ( replicateM )
 import qualified Numeric.LinearAlgebra.HMatrix as H
-import           Numeric.LinearAlgebra.Static
+import           Numeric.LinearAlgebra.Static as S
                  ( R, vector, extract, Sq, Sym, col,
                    tr, linSolve, uncol, chol, (<.>),
                    ℝ, (<>), diag, (#>), eigensystem
@@ -108,7 +108,7 @@ normalMultivariate mu bigSigma = do
   where
     (vals, bigU) = eigensystem bigSigma
     lSqrt = diag $ mapVector sqrt vals
-    bigA = bigU <> lSqrt
+    bigA = bigU S.<> lSqrt
 
 mapVector :: KnownNat n => (ℝ -> ℝ) -> R n -> R n
 mapVector f = vector . H.toList . H.cmap f . extract
